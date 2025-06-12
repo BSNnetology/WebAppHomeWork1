@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body style="background:LightGray;">
+	<!-- method="POST" -->
+	<form action="dadata.php" method="POST" target="result">
+
+		<p class="mf-req" style="width:150px; display:inline-block;">
+			<strong>Введите имя *</strong></p>
+		<input type="text" id="firstName" name="user_name" style="width:250px;" value="">
+		<br>
+
+		<p class="mf-req" style="width:150px; display:inline-block;">
+			<strong>Введите отчество *</strong></p>
+		<input type="text" id="secondName" name="user_second_name" style="width:250px;" value="">
+		<br>
+
+		<p class="mf-req" style="width:150px; display:inline-block;">
+			<strong>Введите фамилию *</strong></p>
+		<input type="text" id="lastName" name="user_last_name" style="width:250px;" value="">
+		<br>
+
+		<input type="hidden" name="token" value="3fa65d20aea591623143283521965142fa3d7c59"/>
+		<input type="hidden" name="secret" value="571132cab1dced1c4c3e72e0031447ac4ac588cb"/>
+		<br>
+
+		<input type="submit" name="submitPOST" value="Отправить запрос методом POST">
+		<button type="submit" formmethod="GET" name="submitGET">Отправить запрос методом GET</button>
+	</form>
+
+	<br>Результат:<br>
+	<p><iframe name="result" style="width:60%;height:30em;background:black;"></iframe></p>
+</body>
+
+<!-- ======================================= -->
+<script>
+	window.addEventListener('load', function () {
+
+		// -- Сохраненные значения формы
+		let lastSuorce = getCookie("PhpSourse");			
+		if (lastSuorce !== null) {
+			lastSuorce = decodeURIComponent(lastSuorce);
+			lastSuorce = JSON.parse(lastSuorce);
+			for (let key in lastSuorce) { 
+				let eInput = document.getElementById(key); 
+				eInput.value = lastSuorce[key];  
+			}  
+		}
+		
+		// -- Очистим строку Get параметров
+		let baseUrl = window.location.href.split("?")[0];
+		window.history.pushState('name', '', baseUrl);
+	})
+
+	//-------------- //-------------- //--------------
+	function getCookie(name) {  
+		var cookies = document.cookie.split(';');  
+		for (var i = 0; i < cookies.length; i++) {  
+			var cookie = cookies[i].trim();  
+			if (cookie.indexOf(name) === 0) {  
+				return cookie.substring(name.length + 1); 						
+			}  
+		} 
+		//-------------- 
+		return null;  
+	} 
+
+</script>        
+
+</html>
